@@ -19,7 +19,7 @@ class CinemasApp extends StatelessWidget {
   }
 }
 
-// --- PANTALLA DE BIENVENIDA (MODIFICADA PARA TU ACTIVIDAD) ---
+// --- PANTALLA DE BIENVENIDA
 class PantallaBienvenida extends StatelessWidget {
   const PantallaBienvenida({super.key});
 
@@ -33,9 +33,7 @@ class PantallaBienvenida extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                  "assets/imagen_principal.jpeg",
-                ), // Asegúrate que el nombre coincida con tu archivo
+                image: AssetImage("assets/imagen_principal.jpeg"),
                 fit: BoxFit.cover, // Cubre toda la pantalla
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(
@@ -54,7 +52,7 @@ class PantallaBienvenida extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Bienvenido",
+                  "BIENVENIDO",
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
