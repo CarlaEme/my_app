@@ -12,75 +12,88 @@ class CinemasApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Cinemas',
-      theme: ThemeData(primarySwatch: Colors.indigo),
+      // Agregamos un tema oscuro general para que combine con el cine
+      theme: ThemeData(brightness: Brightness.dark, primarySwatch: Colors.red),
       home: const PantallaBienvenida(),
     );
   }
 }
 
-// --- PANTALLA DE BIENVENIDA ---
+// --- PANTALLA DE BIENVENIDA (MODIFICADA PARA TU ACTIVIDAD) ---
 class PantallaBienvenida extends StatelessWidget {
   const PantallaBienvenida({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        // CONTAINER: Para el fondo y espaciado
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          // COLUMN: Alineación vertical de elementos
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "CINEMAS",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2,
+      body: Stack(
+        // STACK: Para encimar el texto sobre la imagen
+        children: [
+          // 1. LA IMAGEN DE FONDO
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  "assets/imagen_principal.jpeg",
+                ), // Asegúrate que el nombre coincida con tu archivo
+                fit: BoxFit.cover, // Cubre toda la pantalla
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(
+                    0.1,
+                  ), // Capa oscura para leer mejor el texto
+                  BlendMode.darken,
+                ),
               ),
             ),
-            const SizedBox(height: 20),
-            const Icon(
-              Icons.movie_filter,
-              size: 100,
-              color: Colors.indigo,
-            ), // Icono de tu borrador
-            const SizedBox(height: 20),
-            const Text("BIENVENIDO", style: TextStyle(fontSize: 24)),
-            const SizedBox(height: 50),
+          ),
 
-            // Botones CONTAINER
-            GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const PantallaLogin()),
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  color: Colors.red[300],
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                child: const Center(
-                  child: Text(
-                    "Iniciar sesión",
-                    style: TextStyle(color: Colors.white),
+          // 2. EL CONTENIDO (Nombre, Bienvenida y Botón)
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Bienvenido",
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    letterSpacing: 4,
                   ),
                 ),
-              ),
+                const SizedBox(height: 450),
+
+                // Botón Iniciar Sesión con Container para diseño personalizado
+                GestureDetector(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PantallaLogin(),
+                    ),
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 15,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.red[900],
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: const Text(
+                      "Iniciar sesión",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 15),
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Crear Cuenta",
-                style: TextStyle(color: Colors.blue),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -102,7 +115,7 @@ class PantallaDetalle extends StatelessWidget {
               Container(
                 height: 300,
                 width: double.infinity,
-                color: Colors.grey[300],
+                color: Colors.grey[800],
                 child: const Icon(Icons.image, size: 100),
               ),
               Container(
@@ -139,7 +152,7 @@ class PantallaDetalle extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Descripción de la película.",
+                  "Descripción de la película que vendrá desde la base de datos.",
                   style: TextStyle(color: Colors.grey, fontSize: 16),
                 ),
               ],
@@ -158,7 +171,7 @@ class PantallaLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text("Acceso")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -168,13 +181,25 @@ class PantallaLogin extends StatelessWidget {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),
-            const TextField(decoration: InputDecoration(labelText: "Usuario")),
             const TextField(
-              decoration: InputDecoration(labelText: "Contraseña"),
+              decoration: InputDecoration(
+                labelText: "Usuario",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 15),
+            const TextField(
+              decoration: InputDecoration(
+                labelText: "Contraseña",
+                border: OutlineInputBorder(),
+              ),
               obscureText: true,
             ),
             const SizedBox(height: 30),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(double.infinity, 50),
+              ),
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
