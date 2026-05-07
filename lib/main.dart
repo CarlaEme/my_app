@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'pelicula_service.dart';
 
 void main() {
   runApp(const CinemasApp());
@@ -194,16 +195,31 @@ class PantallaLogin extends StatelessWidget {
               obscureText: true,
             ),
             const SizedBox(height: 30),
+
+            // BOTON
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 50),
+                backgroundColor: Colors.red[900],
               ),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const PantallaDetalle(),
-                ),
-              ),
+              onPressed: () async {
+                // 1. Agregamos async
+
+                print("Conectando con la API..."); // Mensaje de control
+
+                // 2. Ejecutamos la petición HTTP antes de pasar a la siguiente pantalla
+                await PeliculaService().consultarCartelera();
+
+                // 3. Navegamos a la pantalla de detalle
+                if (context.mounted) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PantallaDetalle(),
+                    ),
+                  );
+                }
+              },
               child: const Text("Entrar"),
             ),
           ],
