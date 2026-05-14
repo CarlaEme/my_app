@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "133421342974",
+    "firebase_url": "https://cinemas-app-24539-default-rtdb.firebaseio.com",
+    "project_id": "cinemas-app-24539",
+    "storage_bucket": "cinemas-app-24539.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133421342974:android:ce843ccff25ff6f74c85af",
+        "android_client_info": {
+          "package_name": "com.example.my_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXMDtBMwSr-awWO-YIZe0ulQIDZMfbgag"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

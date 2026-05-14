@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   http: ^1.1.0  # <--- Se agregó esta librería necesaria para la API
+  firebase_core: ^2.24.2   # <--- Agrega esta
+  cloud_firestore: ^4.14.0 # <--- Agrega esta para subir datos
 
 dev_dependencies:
   flutter_test:

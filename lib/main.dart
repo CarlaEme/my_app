@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart'; // <--- Nueva: Necesaria para Firebase
+import 'firebase_options.dart'; // <--- Nueva: El archivo que se generó en tu carpeta
 import 'pelicula_service.dart';
 
-void main() {
+void main() async {
+  // <--- Agregamos 'async' aquí
+  // Esta línea es obligatoria al usar Firebase en el main
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializamos Firebase con la configuración de tu proyecto
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const CinemasApp());
 }
 
