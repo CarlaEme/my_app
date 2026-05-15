@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart'; // <--- Nueva: Necesaria para Firebase
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart'; // <--- Nueva: El archivo que se generó en tu carpeta
 import 'pelicula_service.dart';
 
@@ -211,15 +212,27 @@ class PantallaLogin extends StatelessWidget {
                 minimumSize: const Size(double.infinity, 50),
                 backgroundColor: Colors.red[900],
               ),
+
+              // ... dentro de tu ElevatedButton ...
               onPressed: () async {
-                // 1. Agregamos async
+                // --- AQUÍ VA EL CÓDIGO DE FIREBASE ---
+                try {
+                  print("Intentando guardar en Firebase...");
 
-                print("Conectando con la API..."); // Mensaje de control
+                  await FirebaseFirestore.instance.collection('pruebas').add({
+                    'test': 'Hola Carla',
+                    'fecha': DateTime.now(),
+                  });
 
-                // 2. Ejecutamos la petición HTTP antes de pasar a la siguiente pantalla
+                  print("¡Guardado exitoso en la nube!");
+                } catch (e) {
+                  print("Error al conectar con Firestore: $e");
+                }
+                // -------------------------------------
+
+                // Luego sigue lo que ya tenías:
                 await PeliculaService().consultarCartelera();
 
-                // 3. Navegamos a la pantalla de detalle
                 if (context.mounted) {
                   Navigator.push(
                     context,
@@ -229,6 +242,7 @@ class PantallaLogin extends StatelessWidget {
                   );
                 }
               },
+
               child: const Text("Entrar"),
             ),
           ],
