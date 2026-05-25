@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class PeliculaService {
-  // Tu llave real obtenida de TMDb
+  // Llave real obtenida de TMDb
   final String _apiKey = "afeb6906a4711a65f705365cc8432512";
 
-  Future<void> consultarCartelera() async {
-    // Definimos la URL para obtener películas populares en español
+  Future<List<dynamic>> consultarCartelera() async {
     final url = Uri.parse(
       'https://api.themoviedb.org/3/movie/popular?api_key=$_apiKey&language=es-MX',
     );
@@ -21,15 +20,14 @@ class PeliculaService {
         print("--- CONEXIÓN EXITOSA CON TMDB ---");
         print("Se recuperaron ${peliculas.length} películas para tu catálogo.");
 
-        // Imprime el nombre de la primera película en la consola
-        if (peliculas.isNotEmpty) {
-          print("Película de estreno: ${peliculas[0]['title']}");
-        }
+        return peliculas; // <--- Llista de la API
       } else {
         print("Error del servidor: ${respuesta.statusCode}");
+        return []; // Si hay error, devuelve lista vacía
       }
     } catch (e) {
       print("Error al conectar: $e");
+      return []; // Si hay excepción, devuelve lista vacía
     }
   }
 }
